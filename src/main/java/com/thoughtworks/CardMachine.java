@@ -4,23 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardMachine {
-    private int numberN;
     private List<Integer> randomNums;
 
     public CardMachine() {
     }
 
-    public CardMachine(int numberN, List<Integer> randomNums) {
-        this.numberN = numberN;
+    public CardMachine(List<Integer> randomNums) {
         this.randomNums = randomNums;
-    }
-
-    public int getNumberN() {
-        return numberN;
-    }
-
-    public void setNumberN(int numberN) {
-        this.numberN = numberN;
     }
 
     public List<Integer> getRandomNums() {
@@ -31,18 +21,21 @@ public class CardMachine {
         this.randomNums = randomNums;
     }
 
-    public List<String> drawCard(Card card) {
+    public List<Card> drawCard(int n) {
         int randomNum;
         int colorIndex;
         int numIndex;
-        List<String> cards = new ArrayList<String>();
-        for (int i = 0; i < numberN; i++) {
+        List<Card> cards = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            Card card = new Card();
             randomNum = randomNums.get(i);
             colorIndex = randomNum / 13;
             numIndex = randomNum % 13;
-            card.setCard(card.getCardColors()[colorIndex] + card.getCardNumber()[numIndex]);
-            cards.add(card.getCard());
+            card.setCard(card.getCardColors()[colorIndex] + card.getCardNumbers()[numIndex]);
+            cards.add(card);
         }
         return cards;
     }
+
+
 }

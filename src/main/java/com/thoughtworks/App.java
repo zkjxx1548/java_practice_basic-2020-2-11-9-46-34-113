@@ -14,19 +14,14 @@ public class App {
     judgeN(n);
 
     //洗牌
-    List<Integer> listN = new ArrayList<Integer>();
-    Random random = new Random();
-    int num;
-    for (int i = 0; i < n; i++) {
-      num = random.nextInt(52);
-      listN.add(num);
-    }
+    List<Integer> listN = new ArrayList<>();
+    getCardRandomNum(n, listN);
 
     //抽牌
-    CardMachine cardMachine = new CardMachine(n, listN);
-    Card card = new Card();
-    List<String> cards = cardMachine.drawCard(card);
+    CardMachine cardMachine = new CardMachine(listN);
+    List<Card> cards = cardMachine.drawCard(n);
 
+    //亮牌
     printCards(cards);
   }
 
@@ -38,10 +33,22 @@ public class App {
     }
   }
 
-  public static void printCards(List<String> cards) {
-    for (int i = 0; i < cards.size()-1; i++) {
-      System.out.printf(cards.get(i) + " ");
+  public static List<Integer> getCardRandomNum(int n, List<Integer> list) {
+    Random random = new Random();
+    int num;
+    while (list.size() < n) {
+      num = random.nextInt(52);
+      if (!list.contains(num)) {
+        list.add(num);
+      }
     }
-    System.out.println(cards.get(cards.size()-1));
+    return list;
+  }
+
+  public static void printCards(List<Card> cards) {
+    for (int i = 0; i < cards.size()-1; i++) {
+      System.out.printf(cards.get(i).getCard() + " ");
+    }
+    System.out.println(cards.get(cards.size()-1).getCard());
   }
 }
